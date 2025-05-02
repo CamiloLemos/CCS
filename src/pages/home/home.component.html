@@ -1,13 +1,16 @@
 <main id="principalContainer">
-    <app-pokemon-picture></app-pokemon-picture>
-    <div id="cardContainer">
-        <app-pokemon-card></app-pokemon-card>
-        <app-pokemon-card></app-pokemon-card>
-        <app-pokemon-card></app-pokemon-card>
-        <app-pokemon-card></app-pokemon-card>
-        <app-pokemon-card></app-pokemon-card>
-        <app-pokemon-card></app-pokemon-card>
-      
+    <app-pokemon-details></app-pokemon-details>
+    <app-pokemon-picture [pokemon]=selectedPokemon ></app-pokemon-picture>
+
+    <div id="cardContainer" #cards (scroll)="onScroll($event)">
+
+        @for (pokemon of pokemonList; track pokemon){
+            <app-pokemon-card [data]="pokemon" [selected]="pokemon.name === selectedPokemon?.name" (clicked)="clickedCard($event)"></app-pokemon-card >
+        }
+        
+   
+  
+             
     </div>
    
     

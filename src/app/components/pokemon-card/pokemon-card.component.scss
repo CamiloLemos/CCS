@@ -15,6 +15,7 @@
         background-color: #da4443;
         z-index: -1;
     }
+    overflow-x: hiden;
 }
 
 #card{
@@ -22,14 +23,15 @@
     align-items: center;
     background-color: #fceab8;
     border-radius: 25px 5px 5px 25px;
-    width: 100%;
+    width: 90%;
     font-size: larger;
     padding-left: 5px;
     gap: 1rem;
+    margin-left: 30px;
 }
 
 #arrow{
-    
+    position: absolute;
     height: 20px;
     padding:0 10px;
 
@@ -43,5 +45,5 @@
 }
 
 #imgCard{
-    max-height: 30px;
+    max-height: 40px;
 }
