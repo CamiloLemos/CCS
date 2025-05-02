@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   page:number = 1;
   loading:boolean = false;
   //pokemonSelected?:Pokemon;
-  detalle:boolean=false;
+  detail:boolean=false;
   selectedPokemon?:Pokemon;
 
   ngOnInit(): void {
@@ -52,7 +52,13 @@ export class HomeComponent implements OnInit {
 
   }
   async clickedCard(id:string){
+    if(this.selectedPokemon && id ===this.selectedPokemon?.id.toString()){
+      return this.stateChange();
+    }
     
     this.selectedPokemon = await this.pokemonService.getById(id);
+  }
+  stateChange(){
+    if(this.selectedPokemon) this.detail=!this.detail;
   }
 }

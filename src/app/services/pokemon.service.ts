@@ -32,17 +32,12 @@ export class PokemonService {
   }
 
   // Método sugerido para obtener la descripción de un Pokémon
-  async getDescription(id: string): Promise<string> {
-    try {
-      const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-      const speciesData = await speciesRes.json();
-      const descriptionEntry = speciesData.flavor_text_entries.find(
-        (entry: any) => entry.language.name === 'en'
-      );
-      return descriptionEntry ? descriptionEntry.flavor_text.replace(/\n|\f/g, ' ') : 'No description available.';
-    } catch (error) {
-      console.error('Error fetching Pokémon description:', error);
-      return 'Description not found.';
-    }
+  async getDescription(id:string | number):Promise<string>{
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+    const resJson = await res.json();
+    const texto = resJson.flavor_text_entries.find((texto:any) =>  texto.language.name === "es")
+    return texto.flavor_text;
   }
+
+  
 }

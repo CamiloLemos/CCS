@@ -1,4 +1,27 @@
-<div id="detailContainer">
-
-    
+<div id="backdrop" [class.backhide]="!open"  (click)=" clicked.emit()"></div>
+<div id="detailsContainer">
+    <div id="slider">
+    <div class="area">
+        <app-pokemon-card
+        [fulldata]="pokemon"></app-pokemon-card>
+        </div>
+        <div class="area">
+            <p>
+                <span class="label">Tipo:</span>
+                @for (type of pokemon?.types; track type.type) {
+                <span class="type"> {{ type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}} </span>
+                }
+            </p>
+            <p><span class="label">Altura: </span>{{pokemon?.height}}'</p>
+            <p><span class="label">Peso:  </span>{{pokemon?.weight}} lbs.</p>
+    </div>
+    <div class="area">
+        <div id="descriptionContainer">
+            <div></div>
+            <p>{{description}}</p>
+            <div></div>
+        </div>
+    </div>
+    </div>
+    <button (click)="clicked.emit()"><img [class.turn]="open" src="./../../../assets/img/arrow.png" alt=""></button>
 </div>

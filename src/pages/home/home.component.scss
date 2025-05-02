@@ -34,10 +34,22 @@
 app-pokemon-picture{
     margin-left: 100px;
     z-index: 2;
+    transition: 0.5s;
+    transition-timing-function: ease-in-out;
+    &.open{
+        margin-left: 50px;
+    }
 }
 
 app-pokemon-details{
     position: absolute;
+    z-index: 1;
+    left: -90vw;
+    transition: 0.5s;
+    transition-timing-function: ease-in-out;
+    &.open{
+        left: 0;
+    }
 }
 
 #cardContainer{
