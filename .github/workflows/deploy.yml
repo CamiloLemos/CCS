@@ -3,11 +3,12 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - master  # o la rama principal de tu proyecto
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -26,5 +27,8 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: master
-          folder: dist/pokedex
+          branch: gh-pages          # Rama donde se publica el sitio
+          folder: dist/pokedex          # Ruta generada por Angular (revisa angular.json)
+          clean: true               # Borra archivos previos en gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}  # Usa el token seguro por defecto
+
