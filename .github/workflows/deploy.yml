@@ -28,7 +28,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages          # Rama donde se publica el sitio
-          folder: dist/pokedex          # Ruta generada por Angular (revisa angular.json)
+          folder: dist/CSS          # Ruta generada por Angular (revisa angular.json)
           clean: true               # Borra archivos previos en gh-pages
           token: ${{ secrets.TOKEN }}  # Usa el token seguro por defecto
 
