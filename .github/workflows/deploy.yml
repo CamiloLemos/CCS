@@ -30,4 +30,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          npm run ng -- deploy --repo=https://https://github.com/CamiloLemos/CCS.git --name="CamiloLemos" --email="jclemosg@unal.edu.co" --base-href=/CCS/
+          npm run ng -- deploy --repo=https://github.com/CamiloLemos/CCS.git --name="CamiloLemos" --email="jclemosg@unal.edu.co" --base-href=/CCS/
