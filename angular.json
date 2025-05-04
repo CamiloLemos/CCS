@@ -30,7 +30,7 @@
                 
               "glob": "**/*",
               "input": "src/assets",
-              "output": "docs/CCS/browser/assets"
+              "output": "docs/CCS/assets"
               }
             ],
             "styles": [
