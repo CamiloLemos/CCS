@@ -1,89 +1,30 @@
-name: Deploy to GitHub Pages
+name: Build & Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main  # O tu rama principal, puede ser 'master'
+    branches: ["master"]
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'  # O la versión que uses
-          cache: 'npm'
+          node-version: latest
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # Crear archivo .nojekyll para evitar procesamiento Jekyll
-      - name: Create .nojekyll file
-        run: touch src/.nojekyll
+      - name: Build Angular app
+        run: ng build --configuration production --base-href=/pokedex/
 
-      # Copia el archivo 404.html
-      - name: Create 404.html 
-        run: |
-          cat > src/404.html << 'EOL'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="utf-8">
-            <title>Pokedex</title>
-            <script type="text/javascript">
-              var pathSegmentsToKeep = 1;
-              var l = window.location;
-              l.replace(
-                l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-                l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-                l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-                (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-                l.hash
-              );
-            </script>
-          </head>
-          <body>
-          </body>
-          </html>
-          EOL
-
-      # Modificar index.html para añadir script SPA
-      - name: Modify index.html
-        run: |
-          sed -i '/<head>/a \
-          <script type="text/javascript"> \
-            (function(l) { \
-              if (l.search[1] === "/" ) { \
-                var decoded = l.search.slice(1).split("&").map(function(s) {  \
-                  return s.replace(/~and~/g, "&") \
-                }).join("?"); \
-                window.history.replaceState(null, null, \
-                    l.pathname.slice(0, -1) + decoded + l.hash \
-                ); \
-              } \
-            }(window.location)) \
-          </script>' src/index.html
-
-      - name: Build
-        run: npm run build -- --configuration production --base-href=/pokedex/
-
-      # Este paso es para diagnóstico, para ver la estructura de carpetas generada
-      - name: Debug output directory
-        run: |
-          ls -la
-          ls -la dist || echo "No dist directory"
-          ls -la dist/pokedex || echo "No dist/pokedex directory" 
-          find dist -type d | sort
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs/pokedex  # Ajusta esta ruta según tu salida de compilación
-          branch: gh-pages
-          clean: true  # Limpia la rama gh-pages antes de subir nuevos archivos
+      - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx angular-cli-ghpages --dir=docs
