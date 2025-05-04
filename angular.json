@@ -103,7 +103,7 @@
           "options": {
             "baseHref": "/pokedex/",
             "name": "GitHub Pages Deployment",
-            "email": "jclemosg@unal.edu.co",
+            "email": "tu-email@ejemplo.com",
             "no404": true,
             "noBranch": false,
             "message": "Deployed with angular-cli-ghpages"
