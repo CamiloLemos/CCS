@@ -84,6 +84,6 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/pokedex  # Ajusta esta ruta según tu salida de compilación
+          folder: docs/pokedex  # Ajusta esta ruta según tu salida de compilación
           branch: gh-pages
           clean: true  # Limpia la rama gh-pages antes de subir nuevos archivos
